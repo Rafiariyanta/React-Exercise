@@ -1,15 +1,15 @@
-import { useEffect, useRef } from "react";
+import {useEffect, useState } from "react";
 import DATA from "./_data";
 
-const Table = ({ name }) => {
-  const tableRef = useRef();
+const Table = ({ onMount }) => {
+  const [name, setName] = useState('')
 
   useEffect(() => {
-    DATA.filter(datas => datas.name.includes(name))
-    console.log('yeah');
-  } , [name])
+    onMount(setName);
+  }, [onMount, name])
+
   return (
-    <table ref={tableRef}>
+    <table>
       <thead>
         <tr>
           <th>Name</th>
@@ -18,7 +18,7 @@ const Table = ({ name }) => {
         </tr>
       </thead>
       <tbody>
-        {DATA.map((eachrow, idx) => (
+        {DATA.filter(datas => datas.name.includes(name)).map((eachrow, idx) => (
           <tr key={idx}>
             <td>{eachrow.name}</td>
             <td>{eachrow.age}</td>

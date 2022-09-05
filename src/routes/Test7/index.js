@@ -1,15 +1,19 @@
-import { useRef } from "react";
 import useRenderLog from "../../hooks/useRenderLog";
 import Input from "./Input";
 import Table from "./Table";
 
 const Test7 = () => {
   useRenderLog('Test7', 1);
-  const nameRef = useRef('')
+
+  let setValue = null;
+
+  const onChildMount = (setter) => {
+    setValue = setter;
+  } 
 
   const handleClick = (value, e) => {
-    e.preventDefault()
-    nameRef.current = value
+    e.preventDefault();
+    setValue(value)
   }
 
   return(
@@ -20,7 +24,7 @@ const Test7 = () => {
       </ul>
       <Input handleClick={handleClick}/>
       <div>
-        <Table name={nameRef.current}/>
+        <Table onMount={onChildMount}/>
       </div>
     </div>
   )
