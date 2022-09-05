@@ -1,6 +1,7 @@
-// import DATA from "./_data";
+import DATA from "./_data";
 
-const Table = () => {
+const Table = ({ name }) => {
+
   return (
     <table>
       <thead>
@@ -10,6 +11,15 @@ const Table = () => {
           <th>Address</th>
         </tr>
       </thead>
+      <tbody>
+        {DATA.filter(datas => datas.name.includes(name)).map((datas, index) => (
+          <tr key={index}>
+            <td>{datas.name}</td>
+            <td>{datas.age}</td>
+            <td>{datas.address}</td>
+          </tr>
+        ))}
+      </tbody>
     </table>
   )
 }

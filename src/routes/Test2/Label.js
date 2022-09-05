@@ -14,14 +14,21 @@ const cssLabel = css({
     padding: 0,
     border: 'none',
     outline: 'none',
+    display: 'none'
+  },
+
+  '&:hover' : {
+    button : {
+      display: 'inline'
+    }
   }
 })
 
-const Label = () => {
+const Label = ({ value, handleClick }) => {
   return (
     <span className={cssLabel}>
-      RENDER VALUE HERE
-      <button type="button">⊗</button>
+      {value}
+      <button type="button" onClick={() => handleClick()}>⊗</button>
     </span>
   )
 }

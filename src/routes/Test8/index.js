@@ -1,10 +1,32 @@
+import { useState } from 'react';
 import Modal from './Modal';
 import { cssForm } from './style';
 
 const Test8 = () => {
   // ONLY ONE HANDLE METHOD ALLOWED
-  const handleInput = () => {
-    //...
+  const [data, setData] = useState({
+    name: '',
+    age: 0,
+    address: ''
+  })
+  const [show, setShow] = useState(false);
+  const handleInput = (e) => {
+    if(e.target.classList.value === 'nameInput'){
+      setData({
+        ...data,
+        name: e.target.value
+      })
+    }else if(e.target.classList.value === 'ageInput'){
+      setData({
+        ...data,
+        age: e.target.value
+      })
+    }else if(e.target.classList.value === 'addressInput'){
+      setData({
+        ...data,
+        address: e.target.value
+      })
+    }
   };
 
   return(
@@ -16,13 +38,14 @@ const Test8 = () => {
         <li>Reset the form and close the modal when user click the reset button</li>
       </ul>
       <form className={cssForm}>
-        <input type="text" placeholder="name" onChange={handleInput}/>
-        <input type="text" placeholder="age" onChange={handleInput}/>
-        <textarea type="text" placeholder="address" onChange={handleInput}/>
-        <button>Submit</button>
+        <input className='nameInput' value={data.name} type="text" placeholder="name" onChange={handleInput}/>
+        <input className='ageInput' value={data.age ? data.age : ""} type="text" placeholder="age" onChange={handleInput}/>
+        <textarea className='addressInput' value={data.address} type="text" placeholder="address" onChange={handleInput}/>
+        <button onClick={e => {e.preventDefault(); setShow(!show)}}>Submit</button>
       </form>
-      {/* Only Show the modal when user clicked submit */}
-      <Modal />
+      {show && 
+      <Modal data={data} setData={setData} setShow={setShow}/>
+      }
     </div>
   )
 }

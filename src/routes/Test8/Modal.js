@@ -1,15 +1,22 @@
 import { cssModal } from "./style"
 
-const Modal = () => {
+const Modal = ({ data, setData, setShow }) => {
   return (
     <div className={cssModal}>
-      Name: _____
+      Name: {data.name}
       <br/>
-      Age: _____
+      Age: {data.age}
       <br/>
-      Address: _____
+      Address: {data.address}
       <br/>
-      <button>Reset</button>
+      <button onClick={() => {
+        setData({
+        name: '',
+        age: 0,
+        address: ''
+        })
+        setShow(false)
+      }}>Reset</button>
     </div>
   );
 };

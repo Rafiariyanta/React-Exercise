@@ -1,7 +1,18 @@
+import { useState } from "react";
 import Input from "./Input";
 import Label from "./Label";
 
 const Test2 = () => {
+  const [vals, setVals] = useState('')
+
+  const handleChange = (value) => {
+    setVals(value);
+  }
+
+  const handleClick = () => {
+    setVals('');
+  }
+
   return(
     <div>
       <ul>
@@ -9,9 +20,9 @@ const Test2 = () => {
         <li>show "close button" only when hovered, and clear the input value when clicked.</li>
       </ul>
       <p>
-        <Label />
+        <Label value={vals} handleClick={handleClick}/>
       </p>
-      <Input />
+      <Input handleChange={handleChange} value={vals}/>
     </div>
   )
 }

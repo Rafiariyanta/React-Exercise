@@ -1,8 +1,15 @@
+import { useEffect, useRef } from "react";
 import DATA from "./_data";
 
-const Table = () => {
+const Table = ({ name }) => {
+  const tableRef = useRef();
+
+  useEffect(() => {
+    DATA.filter(datas => datas.name.includes(name))
+    console.log('yeah');
+  } , [name])
   return (
-    <table>
+    <table ref={tableRef}>
       <thead>
         <tr>
           <th>Name</th>

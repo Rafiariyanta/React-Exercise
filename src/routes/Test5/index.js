@@ -3,6 +3,9 @@ import { cssWrapper } from './style';
 
 import Comp1 from "./Comp1";
 import Comp3 from "./Comp3";
+import { createContext, useState } from 'react';
+
+export const numberContext = createContext();
 
 const question = (
   <ul>
@@ -26,19 +29,32 @@ const question = (
 );
 
 const Test5 = () => {
+
+  const [number, setNumber] = useState(0)
+
+  function oddOrEven(num) {
+    if(num % 2 === 0){
+      return 'EVEN'
+    }else{
+      return 'ODD'
+    }
+  }
+
   return(
     <div>
       {question}
-      <button id="numbermin" type="button">-</button>
-      <input id="mynumber" type="text" placeholder="input mynumber"/>
-      <button id="numberplus" type="button">+</button>
+      <button id="numbermin" type="button" onClick={() => setNumber(prev => prev-1)}>-</button>
+      <input id="mynumber" type="text" placeholder="input mynumber" value={number} onChange={e => setNumber(e.target.value)}/>
+      <button id="numberplus" type="button" onClick={() => setNumber(prev => prev+1)}>+</button>
       <br/>
       <br/>
       <div className={cssWrapper}>
-        The inputted value is [ODD / EVEN]*
+        The inputted value is {oddOrEven(number)}
       </div>
-      <Comp1 />
-      <Comp3 />
+      <numberContext.Provider value={number}>
+        <Comp1 />
+        <Comp3 />
+      </numberContext.Provider>
     </div>
   )
 }
