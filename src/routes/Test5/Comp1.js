@@ -1,11 +1,12 @@
 import { cssWrapper } from './style';
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Comp2 from "./Comp2";
+import { numberContext } from './index'
 
 
 const Comp1 = () => {
-  const [value, setValue] = useState('');
+  const {value, setValue} = useContext(numberContext)
   const [isChecked, setIsChecked] = useState(false);
 
   const handleCheckBox = event => {
@@ -18,16 +19,16 @@ const Comp1 = () => {
 
   return(
     <div className={cssWrapper}>
-      Latest Inputted from <code>{isChecked ? value : null}</code>
+      Latest Inputted from <code>{isChecked ? value.myNumber1 : null}</code>
       <br/>
       <br/>
       <label htmlFor="overwrite">
         Local overwrite: <input id="overwrite" type="checkbox" value={isChecked} onChange={handleCheckBox}/>
         {isChecked && 
-        <input id="mynumber1" type="text" value={value} placeholder="input mynumber1" onChange={e => setValue(e.target.value)}/>
+        <input id="mynumber1" type="text" value={value.myNumber1} placeholder="input mynumber1" onChange={e => setValue({ ...value, myNumber1: e.target.value })}/>
         }
       </label>
-      <Comp2 myNumber1={value}/>
+      <Comp2 />
     </div>
   )
 }

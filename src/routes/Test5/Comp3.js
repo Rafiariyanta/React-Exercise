@@ -7,11 +7,11 @@ import { numberContext } from './index'
 
 const Comp3 = (/* NO PROPS ALLOWED */) => {
   const [ showModal, setShowModal ] = useState(false);
-  const number = useContext(numberContext)
+  const {value} = useContext(numberContext)
 
   return(
     <>
-      <div className={cssWrapper}>The Inputted Value is: {number}*</div>
+      <div className={cssWrapper}>The Inputted Value is: {value.myNumber}*</div>
       <button type="button" onClick={() => setShowModal(!showModal)} >Show Modal</button>
       {showModal && <Comp4/>}
     </>

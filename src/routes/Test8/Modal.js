@@ -1,6 +1,6 @@
 import { cssModal } from "./style"
 
-const Modal = ({ data, setData, setShow }) => {
+const Modal = ({ data, resetForm}) => {
   return (
     <div className={cssModal}>
       Name: {data.name}
@@ -10,12 +10,7 @@ const Modal = ({ data, setData, setShow }) => {
       Address: {data.address}
       <br/>
       <button onClick={() => {
-        setData({
-        name: '',
-        age: 0,
-        address: ''
-        })
-        setShow(false)
+        resetForm()
       }}>Reset</button>
     </div>
   );

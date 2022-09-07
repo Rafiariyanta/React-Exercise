@@ -30,7 +30,10 @@ const question = (
 
 const Test5 = () => {
 
-  const [number, setNumber] = useState(0)
+  const [value, setValue] = useState({
+    myNumber: 0,
+    myNumberOne: 0,
+  })
 
   function oddOrEven(num) {
     if(num % 2 === 0){
@@ -43,15 +46,15 @@ const Test5 = () => {
   return(
     <div>
       {question}
-      <button id="numbermin" type="button" onClick={() => setNumber(prev => prev-1)}>-</button>
-      <input id="mynumber" type="text" placeholder="input mynumber" value={number} onChange={e => setNumber(e.target.value)}/>
-      <button id="numberplus" type="button" onClick={() => setNumber(prev => prev+1)}>+</button>
+      <button id="numbermin" type="button" onClick={() => setValue({ ...value, myNumber: value.myNumber - 1 })}>-</button>
+      <input id="mynumber" type="text" placeholder="input mynumber" value={value.myNumber} onChange={e => setValue({ ...value, myNumber: e.target.value })}/>
+      <button id="numberplus" type="button" onClick={() => setValue({ ...value, myNumber: value.myNumber + 1 })}>+</button>
       <br/>
       <br/>
       <div className={cssWrapper}>
-        The inputted value is {oddOrEven(number)}
+        The inputted value is {oddOrEven(value.myNumber)}
       </div>
-      <numberContext.Provider value={number}>
+      <numberContext.Provider value={{ value, setValue }}>
         <Comp1 />
         <Comp3 />
       </numberContext.Provider>

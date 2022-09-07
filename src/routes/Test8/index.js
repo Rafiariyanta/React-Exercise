@@ -29,6 +29,15 @@ const Test8 = () => {
     }
   };
 
+  const resetForm = () => {
+      setData({
+      name: '',
+      age: 0,
+      address: ''
+      })
+      setShow(false)
+  }
+
   return(
     <div>
       <ul>
@@ -44,7 +53,7 @@ const Test8 = () => {
         <button onClick={e => {e.preventDefault(); setShow(!show)}}>Submit</button>
       </form>
       {show && 
-      <Modal data={data} setData={setData} setShow={setShow}/>
+      <Modal data={data} resetForm={resetForm}/>
       }
     </div>
   )
