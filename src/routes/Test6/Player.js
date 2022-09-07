@@ -58,6 +58,20 @@ const Player = () => {
     })
   }
 
+  const handleClickVideo = (e) => {
+    if(e.buttons === 1){
+      videoElement.current.currentTime -= 5;
+    }else if(e.buttons === 2){
+      videoElement.current.currentTime += 5;
+    }
+    const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
+    setPlayerState({
+      ...playerState,
+      progress,
+      currentTime: videoElement.current.currentTime
+    })
+  }
+
   // useEffect(() => {
   //   setPlayerState({
   //     ...playerState,
@@ -73,6 +87,7 @@ const Player = () => {
         src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
         onTimeUpdate={handleUpdateRealTime}
         onLoadedMetadata={() => setPlayerState({ ...playerState, duration: videoElement.current.duration })}
+        onMouseDown={handleClickVideo}
       />
       <button type="button" onClick={() => handlePlay()}>{playerState.isPlaying ? "PAUSE" : "PLAY"}</button>
       <button type="button" onClick={() => handleMute()}>{playerState.isMuted ? "UNMUTE" : "MUTE"}</button>
