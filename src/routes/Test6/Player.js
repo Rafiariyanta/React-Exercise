@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { cssVideo } from "./style";
+import { cssVideo, cssVideoContainer } from "./style";
 
 const Player = () => {
   const [playerState, setPlayerState] = useState({
@@ -20,10 +20,10 @@ const Player = () => {
   }
 
   useEffect(() => {
-    playerState.isPlaying ? 
-    videoElement.current.play()
-    :
-    videoElement.current.pause()
+    playerState.isPlaying ?
+      videoElement.current.play()
+      :
+      videoElement.current.pause()
   }, [playerState.isPlaying])
 
   const handleMute = () => {
@@ -34,10 +34,10 @@ const Player = () => {
   }
 
   useEffect(() => {
-    playerState.isMuted ? 
-    videoElement.current.muted = true
-    :
-    videoElement.current.muted = false
+    playerState.isMuted ?
+      videoElement.current.muted = true
+      :
+      videoElement.current.muted = false
   }, [playerState.isMuted])
 
   const handleUpdateRealTime = () => {
@@ -59,9 +59,9 @@ const Player = () => {
   }
 
   const handleClickVideo = (e) => {
-    if(e.buttons === 1){
+    if (e.buttons === 1) {
       videoElement.current.currentTime -= 5;
-    }else if(e.buttons === 2){
+    } else if (e.buttons === 2) {
       videoElement.current.currentTime += 5;
     }
     const progress = (videoElement.current.currentTime / videoElement.current.duration) * 100;
@@ -79,19 +79,21 @@ const Player = () => {
   //   })
   // }, [videoElement])
 
-  return(
+  return (
     <div>
-      <video
-        ref={videoElement}
-        className={cssVideo}
-        src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-        onTimeUpdate={handleUpdateRealTime}
-        onLoadedMetadata={() => setPlayerState({ ...playerState, duration: videoElement.current.duration })}
-        onMouseDown={handleClickVideo}
-      />
+      <div className={cssVideoContainer}>
+        <video
+          ref={videoElement}
+          className={cssVideo}
+          src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+          onTimeUpdate={handleUpdateRealTime}
+          onLoadedMetadata={() => setPlayerState({ ...playerState, duration: videoElement.current.duration })}
+          onMouseDown={handleClickVideo}
+        />
+      </div>
       <button type="button" onClick={() => handlePlay()}>{playerState.isPlaying ? "PAUSE" : "PLAY"}</button>
       <button type="button" onClick={() => handleMute()}>{playerState.isMuted ? "UNMUTE" : "MUTE"}</button>
-      <input type="range" min="0" max="100" value={playerState.progress} onChange={(e) => handleVideoProgress(e)}/>
+      <input type="range" min="0" max="100" value={playerState.progress} onChange={(e) => handleVideoProgress(e)} />
       <span>{new Date(Math.ceil(playerState.currentTime) * 1000).toISOString().substr(15, 4)}/{new Date(Math.ceil(playerState.duration) * 1000).toISOString().substr(15, 4)}</span>
     </div>
   )
